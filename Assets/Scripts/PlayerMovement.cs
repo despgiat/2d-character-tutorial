@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public Animator anim; //The player's Animator Component
     public float moveHorizontal; //float that indicates the character's speed relative to the right direction
     public SpriteRenderer sprite;
+    private PlayerManager manager;
 
     //side scroller characters only move horizontally and jump vertically
 
@@ -20,12 +21,13 @@ public class PlayerMovement : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>(); //We use GetComponent to access components and their properties from the same or other game objects
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        manager = GetComponent<PlayerManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Jump") && grounded)
+        if(Input.GetButtonDown("Jump") && grounded && manager.health > 0)
         {
             Jump();
         }
@@ -43,11 +45,15 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate() //It's called a fixed amount of times per second
     {
-        moveHorizontal = Input.GetAxis("Horizontal") * speed; //calculates the horizontal movement's speed when we press the horizontal arrow keys or "a" and "d"      
+        if(manager.health > 0)
+        {
+            moveHorizontal = Input.GetAxis("Horizontal") * speed; //calculates the horizontal movement's speed when we press the horizontal arrow keys or "a" and "d"      
         
-        rb2d.AddForce(new Vector2(moveHorizontal, 0f), ForceMode2D.Force); //"throws" the player object to the horizontal axis by the moveHorizontal speed
+            rb2d.AddForce(new Vector2(moveHorizontal, 0f), ForceMode2D.Force); //"throws" the player object to the horizontal axis by the moveHorizontal speed
 
-        anim.SetFloat("Speed", Mathf.Abs(moveHorizontal)); //Updates the Animator parameters that control which animation state the character is in
+            anim.SetFloat("Speed", Mathf.Abs(moveHorizontal)); //Updates the Animator parameters that control which animation state the character is in
+   
+        }
     }
 
     public void Jump()
