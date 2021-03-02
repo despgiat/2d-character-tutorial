@@ -11,6 +11,8 @@ public class DeathZone : MonoBehaviour
         {
             SceneManager.LoadScene("SampleScene"); //Loads the scene with that particular name - could be any scene
         }
+
+        Destroy(collision.gameObject);
         
     }
 }

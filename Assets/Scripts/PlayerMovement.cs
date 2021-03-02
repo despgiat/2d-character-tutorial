@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb2d; //Physics Component
     public bool grounded; //true if the player is on the ground and not mid-air
     public Animator anim; //The player's Animator Component
-    float moveHorizontal; //float that indicates the character's speed relative to the right direction
+    public float moveHorizontal; //float that indicates the character's speed relative to the right direction
     public SpriteRenderer sprite;
 
     //side scroller characters only move horizontally and jump vertically
@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         anim.SetFloat("Speed", Mathf.Abs(moveHorizontal)); //Updates the Animator parameters that control which animation state the character is in
     }
 
-    private void Jump()
+    public void Jump()
     {
         rb2d.AddForce(new Vector2(0f, speed/2), ForceMode2D.Impulse); //"throws" the player object upwards (vertical axis) with an instant force
     }

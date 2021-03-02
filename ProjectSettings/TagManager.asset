@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Ground
   - Movable
+  - EnemyDamageArea
+  - Enemy
+  - Background
   layers:
   - Default
   - TransparentFX
